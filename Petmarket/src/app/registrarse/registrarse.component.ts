@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,8 +10,43 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+/**
+ * @description
+ * Componente de registro de usuarios que implementa un formulario reactivo con validaciones
+ * avanzadas. Este componente permite a los nuevos usuarios registrarse en la aplicación
+ * proporcionando información personal básica y credenciales de acceso.
+ * 
+ * El componente incluye:
+ * - Validación de contraseña con requisitos específicos (mayúsculas y números)
+ * - Verificación de edad mínima (13 años)
+ * - Validación de coincidencia de contraseñas
+ * - Manejo de estados de carga y éxito
+ * - Reinicio de formulario
+ * 
+ * @usageNotes
+ * ### Importación
+ * ```typescript
+ * import { RegistrarseComponent } from './registrarse/registrarse.component';
+ * ```
+ * 
+ * ### Uso en template
+ * ```html
+ * <app-registrarse></app-registrarse>
+ * ```
+ * 
 
-
+ * ### Requisitos de contraseña
+ * - Mínimo 6 caracteres
+ * - Máximo 18 caracteres
+ * - Al menos una letra mayúscula
+ * - Al menos un número
+ * 
+ * ### Validaciones implementadas
+ * - Email válido
+ * - Edad mínima de 13 años
+ * - Campos requeridos
+ * - Coincidencia de contraseñas
+ */
 @Component({
   selector: 'app-registrarse',
   standalone: true,
@@ -18,13 +55,55 @@ import {
   styleUrl: './registrarse.component.css',
 })
 export class RegistrarseComponent implements OnInit {
+  /**
+   * Formulario reactivo que gestiona los datos del registro.
+   * Contiene los siguientes campos:
+   * - nombre: string
+   * - usuario: string
+   * - email: string
+   * - contrasena: string
+   * - confirmarContrasena: string
+   * - direccion: string
+   * - fechaNac: Date
+   * @type {FormGroup}
+   */
   registroUsuario!: FormGroup;
+
+  /**
+   * Indica si el formulario ha sido enviado.
+   * Se utiliza para mostrar errores de validación solo después del primer intento de envío.
+   * @type {boolean}
+   * @default false
+   */
   submitted = false;
+
+  /**
+   * Indica si hay una operación de registro en proceso.
+   * Se utiliza para mostrar indicadores de carga y deshabilitar el botón de envío.
+   * @type {boolean}
+   * @default false
+   */
   isLoading = false;
+
+  /**
+   * Indica si se debe mostrar el mensaje de éxito después del registro.
+   * El mensaje se muestra por 3 segundos.
+   * @type {boolean}
+   * @default false
+   */
   showSuccess = false;
 
+  /**
+   * Constructor del componente.
+   * @param {FormBuilder} fb - Servicio para la construcción de formularios reactivos
+   */
   constructor(private fb: FormBuilder) {}
 
+  /**
+   * Inicializa el formulario reactivo con sus campos y validaciones.
+   * Se ejecuta automáticamente cuando el componente es inicializado.
+   * Configura todas las validaciones iniciales y los valores por defecto.
+   */
   ngOnInit(): void {
     this.registroUsuario = this.fb.group(
       {
@@ -50,6 +129,12 @@ export class RegistrarseComponent implements OnInit {
     );
   }
 
+  /**
+   * Validador personalizado para verificar los requisitos de la contraseña.
+   * Verifica que la contraseña contenga al menos un número y una letra mayúscula.
+   * 
+   * @returns {Function} Función validadora que retorna un objeto de error o null
+   */
   passwordValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
@@ -64,6 +149,12 @@ export class RegistrarseComponent implements OnInit {
     };
   }
 
+  /**
+   * Validador personalizado para verificar la edad mínima del usuario.
+   * Calcula la edad basada en la fecha de nacimiento y verifica que sea mayor a 13 años.
+   * 
+   * @returns {Function} Función validadora que retorna un objeto de error o null
+   */
   ageValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) return null;
@@ -84,6 +175,13 @@ export class RegistrarseComponent implements OnInit {
     };
   }
 
+  /**
+   * Validador personalizado para verificar que las contraseñas coincidan.
+   * Compara los valores de los campos 'contrasena' y 'confirmarContrasena'.
+   * 
+   * @param {AbstractControl} group - Grupo de controles del formulario
+   * @returns {ValidationErrors | null} Objeto de error si no coinciden, null si coinciden
+   */
   passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('contrasena')?.value;
     const confirmPassword = group.get('confirmarContrasena')?.value;
@@ -91,6 +189,12 @@ export class RegistrarseComponent implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
+  /**
+   * Obtiene el mensaje de error correspondiente para un campo específico.
+   * 
+   * @param {string} controlName - Nombre del control del formulario
+   * @returns {string} Mensaje de error específico para el tipo de validación fallida
+   */
   getErrorMessage(controlName: string): string {
     const control = this.registroUsuario.get(controlName);
     if (!control) return '';
@@ -109,6 +213,14 @@ export class RegistrarseComponent implements OnInit {
     return '';
   }
 
+  /**
+   * Maneja el envío del formulario.
+   * Valida el formulario completo y procesa los datos si es válido.
+   * Implementa un retraso simulado de 1 segundo para demostrar el estado de carga.
+   * Muestra un mensaje de éxito por 3 segundos si el registro es exitoso.
+   * 
+   * @returns {Promise<void>}
+   */
   async onSubmit() {
     this.submitted = true;
 
@@ -118,12 +230,14 @@ export class RegistrarseComponent implements OnInit {
       try {
         console.log('Formulario enviado:', this.registroUsuario.value);
 
+        // Simulación de llamada al servidor
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         this.showSuccess = true;
         this.registroUsuario.reset();
         this.submitted = false;
 
+        // Ocultar mensaje de éxito después de 3 segundos
         setTimeout(() => {
           this.showSuccess = false;
         }, 3000);
@@ -133,6 +247,7 @@ export class RegistrarseComponent implements OnInit {
         this.isLoading = false;
       }
     } else {
+      // Log de errores en consola para depuración
       Object.keys(this.registroUsuario.controls).forEach((key) => {
         const control = this.registroUsuario.get(key);
         if (control?.errors) {
@@ -142,7 +257,12 @@ export class RegistrarseComponent implements OnInit {
     }
   }
 
-  onReset() {
+  /**
+   * Reinicia el formulario a su estado inicial.
+   * Limpia todos los campos y estados del formulario.
+   * Reinicia los estados de submitted y showSuccess.
+   */
+  onReset(): void {
     this.submitted = false;
     this.registroUsuario.reset({
       nombre: '',

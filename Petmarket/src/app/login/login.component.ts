@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   loginError = '';
 
   constructor(private fb: FormBuilder, private router: Router) {}
-
+  
   ngOnInit(): void {
     this.loginUsuario = this.fb.group(
       {
