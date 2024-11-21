@@ -143,7 +143,15 @@ export class RegistrarseComponent implements OnInit {
 
   onReset() {
     this.submitted = false;
-    this.registroUsuario.reset();
+    this.registroUsuario.reset({
+      nombre: '',
+      usuario: '',
+      email: '',
+      contrasena: '',
+      confirmarContrasena: '',
+      direccion: '',
+      fechaNac: '',
+    });
     this.showSuccess = false;
   }
 }

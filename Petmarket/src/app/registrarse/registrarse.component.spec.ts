@@ -20,12 +20,12 @@ describe('RegistrarseComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deberia crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
   describe('Form Validation', () => {
-    it('should validate required fields', () => {
+    it('deberia validar los compos correspondientes', () => {
       const form = component.registroUsuario;
       expect(form.valid).toBeFalsy();
       
@@ -34,7 +34,7 @@ describe('RegistrarseComponent', () => {
       expect(form.get('contrasena')?.errors?.['required']).toBeTruthy();
     });
 
-    it('should validate email format', () => {
+    it('deberia enviar un email valido', () => {
       const emailControl = component.registroUsuario.get('email');
       
       emailControl?.setValue('invalid-email');
@@ -44,7 +44,7 @@ describe('RegistrarseComponent', () => {
       expect(emailControl?.errors?.['email']).toBeFalsy();
     });
 
-    it('should validate password requirements', () => {
+    it('deberia validar los formularios', () => {
       const passwordControl = component.registroUsuario.get('contrasena');
       
       passwordControl?.setValue('weak');
@@ -59,7 +59,7 @@ describe('RegistrarseComponent', () => {
   });
 
   describe('Form Submission', () => {
-    it('should handle successful submission', fakeAsync(() => {
+    it('deberia validar un submit correcto', fakeAsync(() => {
       const validForm = {
         nombre: 'Test User',
         usuario: 'testuser',
@@ -81,15 +81,15 @@ describe('RegistrarseComponent', () => {
       expect(component.isLoading).toBeFalse();
     }));
 
-    it('should not submit invalid form', () => {
+    it('no deberia hacer un submit en un form invalido', () => {
       component.onSubmit();
       expect(component.registroUsuario.valid).toBeFalse();
       expect(component.isLoading).toBeFalse();
     });
   });
 
-  describe('Age Validation', () => {
-    it('should validate minimum age', () => {
+  describe('Validacion de age', () => {
+    it('deberia validar una edad minima ', () => {
       const fechaNacControl = component.registroUsuario.get('fechaNac');
       
       const today = new Date();
@@ -104,8 +104,8 @@ describe('RegistrarseComponent', () => {
     });
   });
 
-  describe('Reset Functionality', () => {
-    it('should reset form properly', () => {
+  describe('resetear funcionalidades ', () => {
+    it('deberia limpiar los campos correctamente ', () => {
       component.registroUsuario.patchValue({
         nombre: 'Test',
         email: 'test@test.com'

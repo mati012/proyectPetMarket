@@ -13,5 +13,6 @@ import { ProductoComponent } from "./producto/producto.component";
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  title = 'Petmarket';
 
 }
