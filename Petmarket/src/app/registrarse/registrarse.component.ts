@@ -9,6 +9,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 
+
 @Component({
   selector: 'app-registrarse',
   standalone: true,
