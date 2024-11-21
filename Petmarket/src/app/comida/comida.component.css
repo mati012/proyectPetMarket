@@ -1,0 +1,18 @@
+.titulo {
+    text-align: center; 
+    font-family: Arial Black; 
+    font-weight: bold; font-size: 60px; 
+    background: black; 
+    -webkit-background-clip: text; 
+    -moz-background-clip: text; 
+    background-clip: text; 
+    color: transparent; 
+    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.192),0px -1px 1px rgba(0,0,0,0.3);
+    
+    }
+body{
+    background-image: url("/assets/fondo.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

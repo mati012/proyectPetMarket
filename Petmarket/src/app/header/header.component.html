@@ -1,0 +1,23 @@
+<header class="header">
+	<nav class="nav-container">
+	  <div class="logo">
+		<img src="/assets/logo.jpg" alt="Logo" />
+	  </div>
+	  
+	  <button class="menu-button" (click)="toggleMenu()" [class.active]="isMenuOpen">
+		<span></span>
+		<span></span>
+		<span></span>
+	  </button>
+  
+	  <div class="nav-links" [class.show]="isMenuOpen">
+		<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+		<a routerLink="/juguetes" routerLinkActive="active">juguetes</a>
+		<a routerLink="/comida" routerLinkActive="active">comida</a>
+		<a routerLink="/transportadores" routerLinkActive="active">transportadores</a>
+		<a routerLink="/login" routerLinkActive="active">Login</a>
+		<a routerLink="/registrarse" routerLinkActive="active">Registrarse</a>
+		<a routerLink="/cart" routerLinkActive="active">carrito</a>
+	  </div>
+	</nav>
+  </header>

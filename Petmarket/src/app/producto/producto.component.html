@@ -1,0 +1,28 @@
+<div id="container">
+  <div *ngFor="let product of filteredProductos" class="product-card">
+    <div class="product-image">
+      <img
+        [src]="product.imageUrl"
+        [alt]="product.name"
+        (click)="goToProductDetail(product.id)"
+        style="cursor: pointer;"
+      />
+      <div class="new-label">Nuevo</div>
+      <div class="info">
+        <h2>{{ product.name }}</h2>
+        <ul>
+          <li><strong>Calificación: </strong>{{ product.rating }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="product-details">
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <div class="control">
+        <button class="btn" (click)="addToCart(product)">
+          {{ product.price }} Comprar ahora
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
