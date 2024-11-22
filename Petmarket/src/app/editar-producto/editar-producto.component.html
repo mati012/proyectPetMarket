@@ -1,1 +1,79 @@
-<p>editar-producto works!</p>
+<div class="edit-container">
+    <h2>Administrar Productos</h2>
+  
+    <!-- Tabla de productos -->
+    <div class="products-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productos">
+            <td>
+              <img [src]="producto.imageUrl" [alt]="producto.name" class="product-thumbnail">
+            </td>
+            <td>{{ producto.name }}</td>
+            <td>{{ producto.price }}</td>
+            <td>{{ producto.category }}</td>
+            <td class="actions">
+              <button class="edit-btn" (click)="editProduct(producto)">Editar</button>
+              <button class="delete-btn" (click)="deleteProduct(producto.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Formulario de edición -->
+    <div class="edit-form" *ngIf="showForm && selectedProduct">
+      <h3>Editar Producto</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input type="text" [(ngModel)]="selectedProduct.name" name="name" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Precio:</label>
+          <input type="text" [(ngModel)]="selectedProduct.price" name="price" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Descripción:</label>
+          <textarea [(ngModel)]="selectedProduct.description" name="description" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label>Categoría:</label>
+          <select [(ngModel)]="selectedProduct.category" name="category" required>
+            <option value="comida">Comida</option>
+            <option value="juguetes">Juguetes</option>
+            <option value="transportadores">Transportadores</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Rating:</label>
+          <input type="number" [(ngModel)]="selectedProduct.rating" name="rating" min="0" max="5" step="0.5" required>
+        </div>
+  
+        <div class="form-group checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="selectedProduct.descuento" name="descuento">
+            Tiene descuento
+          </label>
+        </div>
+  
+        <div class="button-group">
+          <button type="submit" class="save-btn">Guardar Cambios</button>
+          <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,4 +1,3 @@
-// login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,6 +9,12 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+
+interface User {
+  email: string;
+  password: string;
+  role: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -24,6 +29,20 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   showSuccess = false;
   loginError = '';
+
+  // Usuarios estáticos
+  private readonly USERS: User[] = [
+    {
+      email: 'mati@gmail.com',
+      password: 'Mati0123',
+      role: 'user'
+    },
+    {
+      email: 'admin@gmail.com',
+      password: 'Admin0123',
+      role: 'admin'
+    }
+  ];
 
   constructor(private fb: FormBuilder, private router: Router) {}
   
@@ -47,6 +66,12 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
+  private validateUser(email: string, password: string): User | null {
+    return this.USERS.find(user => 
+      user.email === email && user.password === password
+    ) || null;
+  }
+
   async onSubmit() {
     this.submitted = true;
     this.loginError = '';
@@ -55,19 +80,28 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
 
       try {
-        console.log('Formulario enviado:', this.loginUsuario.value);
+        const { email, contrasena } = this.loginUsuario.value;
+        const user = this.validateUser(email, contrasena);
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (user) {
+          console.log('Usuario autenticado:', user.email, 'Role:', user.role);
+          this.showSuccess = true;
+          
+          // Guardar información del usuario en localStorage
+          localStorage.setItem('userRole', user.role);
+          localStorage.setItem('userEmail', user.email);
 
-        this.showSuccess = true;
+          // Retardo simulado de 1 segundo
+          await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 1000);
+          // Siempre redirigir a home, el header manejará las rutas según el rol
+          this.router.navigate(['/']);
+        } else {
+          this.loginError = 'Credenciales inválidas. Por favor, intente nuevamente.';
+        }
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        this.loginError =
-          'Error al iniciar sesión. Por favor, intente nuevamente.';
+        this.loginError = 'Error al iniciar sesión. Por favor, intente nuevamente.';
       } finally {
         this.isLoading = false;
       }
@@ -87,4 +121,4 @@ export class LoginComponent implements OnInit {
     this.showSuccess = false;
     this.loginError = '';
   }
-}
+} 

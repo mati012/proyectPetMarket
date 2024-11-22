@@ -1,9 +1,6 @@
 
 
-:host {
-    display: block;
-    padding-top: 70px; 
-  }
+
   .titulo {
     text-align: center; 
     font-family: Arial Black; 
@@ -22,7 +19,8 @@
     align-items: flex-start; 
     min-height: calc(100vh - 80px); 
     padding: 40px 20px;
-    background-color: #f5f5f5;
+  
+    
   }
   
   .register-form {

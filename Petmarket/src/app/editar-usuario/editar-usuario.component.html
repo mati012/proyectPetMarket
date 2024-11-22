@@ -1,1 +1,121 @@
-<p>editar-usuario works!</p>
+<br>
+<br><br><br>
+<div class="perfil-container">
+    <h2>Mi Perfil</h2>
+  
+    <!-- Información del Usuario -->
+    <div class="perfil-card">
+      <div class="perfil-header">
+        <h3>Información Personal</h3>
+        <button class="edit-btn" (click)="editarPerfil()">
+          Editar Perfil
+        </button>
+      </div>
+      <div class="perfil-info">
+        <div class="info-grupo">
+          <label>Nombre:</label>
+          <p>{{ datosUsuario.nombre }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Email:</label>
+          <p>{{ datosUsuario.email }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Teléfono:</label>
+          <p>{{ datosUsuario.telefono }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Dirección:</label>
+          <p>{{ datosUsuario.direccion }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Fecha de Registro:</label>
+          <p>{{ datosUsuario.fechaRegistro }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Última Compra:</label>
+          <p>{{ datosUsuario.ultimaCompra || 'Sin compras' }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Información de la Mascota -->
+    <div class="perfil-card">
+      <div class="perfil-header">
+        <h3>Mi Mascota</h3>
+        <button class="edit-btn" (click)="editarMascota()">
+          Editar Mascota
+        </button>
+      </div>
+      <div class="perfil-info">
+        <div class="info-grupo">
+          <label>Nombre:</label>
+          <p>{{ datosUsuario.mascota.nombre }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Tipo:</label>
+          <p>{{ datosUsuario.mascota.tipo }}</p>
+        </div>
+        <div class="info-grupo">
+          <label>Edad:</label>
+          <p>{{ datosUsuario.mascota.edad }} años</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Formulario de Edición -->
+    <div class="edit-form" *ngIf="showForm">
+      <h3>{{ editingPerfil ? 'Editar Perfil' : 'Editar Mascota' }}</h3>
+      <form (ngSubmit)="onSubmit()">
+        <!-- Formulario de Perfil -->
+        <ng-container *ngIf="editingPerfil">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" [(ngModel)]="datosUsuario.nombre" name="nombre" required>
+          </div>
+  
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" [(ngModel)]="datosUsuario.email" name="email" required>
+          </div>
+  
+          <div class="form-group">
+            <label>Teléfono:</label>
+            <input type="tel" [(ngModel)]="datosUsuario.telefono" name="telefono" required>
+          </div>
+  
+          <div class="form-group">
+            <label>Dirección:</label>
+            <textarea [(ngModel)]="datosUsuario.direccion" name="direccion" required></textarea>
+          </div>
+        </ng-container>
+  
+        <!-- Formulario de Mascota -->
+        <ng-container *ngIf="editingMascota">
+          <div class="form-group">
+            <label>Nombre de la Mascota:</label>
+            <input type="text" [(ngModel)]="datosUsuario.mascota.nombre" name="mascotaNombre" required>
+          </div>
+  
+          <div class="form-group">
+            <label>Tipo:</label>
+            <select [(ngModel)]="datosUsuario.mascota.tipo" name="mascotaTipo" required>
+              <option value="perro">Perro</option>
+              <option value="gato">Gato</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label>Edad:</label>
+            <input type="number" [(ngModel)]="datosUsuario.mascota.edad" name="mascotaEdad" required min="0" max="30">
+          </div>
+        </ng-container>
+  
+        <div class="button-group">
+          <button type="submit" class="save-btn">Guardar Cambios</button>
+          <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>

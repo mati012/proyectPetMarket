@@ -8,6 +8,8 @@ import { RegistrarseComponent } from './registrarse/registrarse.component';
 import { NgModule } from '@angular/core';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { EditarProductoComponent } from './editar-producto/editar-producto.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 export const routes: Routes = [
 
@@ -19,6 +21,8 @@ export const routes: Routes = [
     {path: 'registrarse', component: RegistrarseComponent},
     {path: 'cart', component: CartComponent},
     { path: 'product/:id', component: ProductDetailComponent },
+    {path: 'editar-producto', component: EditarProductoComponent},
+    {path: 'editar-usuario', component: EditarUsuarioComponent},
     { path: '**', redirectTo: '', pathMatch: 'full' } // Wildcard redirect
 
 

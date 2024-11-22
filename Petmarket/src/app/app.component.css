@@ -1,9 +1,17 @@
-body {
-    margin: 0;
-    padding-top: 72px; 
-    font-family: Arial, sans-serif;
-    background-image: url("/assets/fondo.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-  }
+:host {
+  display: block;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url('/assets/fondo.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+
+/* Ensure the main content area takes up available space */
+main {
+  min-height: calc(100vh - 200px); /* Adjust based on your header/footer height */
+  padding: 20px;
+}
