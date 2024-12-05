@@ -1,3 +1,10 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 <div class="register-container">
     <div *ngIf="showSuccess" class="success-message">
         ¡Inicio de sesión exitoso!
@@ -47,6 +54,10 @@
                 <span *ngIf="!isLoading">Iniciar sesión</span>
                 <span *ngIf="isLoading">Cargando...</span>
             </button>
+           
+        </div>
+        <div class="nav-links">
+        <a href="/recuperar-contrasena" routerLinkActive="active">recuperar contraseña</a>
         </div>
     </form>
   </div>

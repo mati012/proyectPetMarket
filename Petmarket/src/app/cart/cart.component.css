@@ -1,170 +1,143 @@
-body {
-  margin: 0;
-  padding-top: 72px; 
-  font-family: Arial, sans-serif;
-  background-image: url("/assets/fondo.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
+/* Estilo general para el contenedor del carrito */
 .cart-container {
-
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding-bottom: -30px;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Título del carrito */
 .cart-container h2 {
-  font-size: 1.8rem;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
   color: #333;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
 }
 
+/* Botón para agregar productos */
+.cart-container button {
+  display: block;
+  margin: 10px auto 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cart-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Mensaje para carrito vacío */
 .empty-cart {
   text-align: center;
-  padding: 3rem;
-  color: #666;
-  font-size: 1.1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+  font-size: 18px;
+  color: #888;
+  margin-top: 20px;
 }
 
+/* Estilo de cada ítem en el carrito */
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.cart-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
+/* Nombre y precio de los productos */
 .cart-item span {
+  font-size: 16px;
   color: #333;
 }
 
-.cart-item span:first-child {
-  font-weight: 500;
-  flex: 1;
-}
-
-.cart-item span:nth-child(2) {
-  color: #666;
-  margin: 0 2rem;
-}
-
-.remove-btn {
-  background: #dc3545;
+/* Botones de acciones en los productos */
+.cart-item button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
 }
 
-.remove-btn:hover {
-  background: #c82333;
-  transform: scale(1.05);
+.cart-item button:hover {
+  background-color: #0056b3;
 }
 
+/* Botón de eliminar con color rojo */
+.cart-item .remove-btn {
+  background-color: #dc3545;
+}
+
+.cart-item .remove-btn:hover {
+  background-color: #a71d2a;
+}
+
+/* Total del carrito */
 .cart-total {
-  margin: 2rem 0;
   text-align: right;
-  font-size: 1.2rem;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
   color: #333;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
 }
 
-.cart-actions {
-  text-align: right;
-}
-
-.pay-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.pay-btn:hover {
-  background: #218838;
-}
-
-/* Responsive Design */
+/* Diseño responsivo para pantallas medianas y pequeñas */
 @media (max-width: 768px) {
   .cart-container {
-    margin: 1rem;
-    padding: 1rem;
+    width: 90%;
   }
 
   .cart-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
   }
 
   .cart-item span {
-    display: block;
-    width: 100%;
+    margin-bottom: 5px;
   }
 
-  .cart-item span:nth-child(2) {
-    margin: 0.5rem 0;
-  }
-
-  .remove-btn {
+  .cart-item button {
+    margin: 5px 0;
     width: 100%;
-    margin-top: 0.5rem;
   }
 
   .cart-total {
     text-align: center;
-  }
-
-  .cart-actions {
-    text-align: center;
-  }
-
-  .pay-btn {
-    width: 100%;
+    margin-top: 20px;
   }
 }
 
-/* Optional: Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@media (max-width: 480px) {
+  .cart-container {
+    padding: 10px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.cart-item {
-  animation: fadeIn 0.3s ease;
+  .cart-container h2 {
+    font-size: 20px;
+  }
+
+  .cart-item span {
+    font-size: 14px;
+  }
+
+  .cart-item button {
+    font-size: 12px;
+  }
+
+  .cart-total {
+    font-size: 16px;
+  }
 }

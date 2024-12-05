@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Ancana",
+    "price": "$10.000",
+    "quantity": 2
+  },
+  {
+    "id": 2,
+    "name": "Peluche",
+    "price": "$25.000",
+    "quantity": 1
+  },
+  {
+    "id": 3,
+    "name": "Transportador para perro",
+    "price": "$20.000",
+    "quantity": 2
+  },
+  {
+    "id": 4,
+    "name": "orijen",
+    "price": "$20.000",
+    "quantity": 3
+  }
+]

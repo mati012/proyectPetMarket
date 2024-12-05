@@ -1,1 +1,38 @@
-<p>recuperar-contrasena works!</p>
+<div class="register-container">
+    <div *ngIf="showSuccess" class="success-message">
+        ¡Email de recuperación enviado! Por favor, revise su bandeja de entrada.
+    </div>
+    
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+    
+    <form [formGroup]="recuperarForm" (ngSubmit)="onSubmit()" class="register-form">
+        <h1>Recuperar Contraseña</h1>
+        
+        <div class="form-group">
+            <label for="email">Email*</label>
+            <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                [ngClass]="{'is-invalid': submitted && recuperarForm.get('email')?.errors}"
+                placeholder="correo@ejemplo.com"
+            >
+            <div class="error-message" *ngIf="submitted && recuperarForm.get('email')?.errors">
+                {{ getErrorMessage('email') }}
+            </div>
+        </div>
+    
+        <div class="form-buttons">
+            <button 
+                type="submit" 
+                class="btn-registrar" 
+                [disabled]="isLoading"
+            >
+                <span *ngIf="!isLoading">Enviar email de recuperación</span>
+                <span *ngIf="isLoading">Enviando...</span>
+            </button>
+        </div>
+    </form>
+</div>

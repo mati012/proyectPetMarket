@@ -107,7 +107,7 @@ export class RegistrarseComponent implements OnInit {
   ngOnInit(): void {
     this.registroUsuario = this.fb.group(
       {
-        nombre: ['', [Validators.required]],
+        nombre: ['', [Validators.required, this.nombreValidator()]],
         usuario: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         contrasena: [
@@ -161,8 +161,20 @@ export class RegistrarseComponent implements OnInit {
 
       const fechaNac = new Date(control.value);
       const today = new Date();
-      let age = today.getFullYear() - fechaNac.getFullYear();
+      
+      // Validar fecha mínima (año 1900)
+      const minDate = new Date('1900-01-01');
+      if (fechaNac < minDate) {
+        return { invalidDate: true };
+      }
 
+      // Validar que no sea fecha futura
+      if (fechaNac > today) {
+        return { futureDate: true };
+      }
+
+      // Calcular edad
+      let age = today.getFullYear() - fechaNac.getFullYear();
       const monthDiff = today.getMonth() - fechaNac.getMonth();
       if (
         monthDiff < 0 ||
@@ -172,6 +184,24 @@ export class RegistrarseComponent implements OnInit {
       }
 
       return age < 13 ? { minAge: true } : null;
+    };
+  }
+  /**
+   * Validador personalizado para verificar el no uso de caracteres especiales en el nombre.
+   * 
+   * 
+   *
+   */
+
+  nombreValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) return null;
+
+      // Verifica si contiene números o caracteres especiales
+      const hasNumbersOrSpecialChars = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(value);
+
+      return hasNumbersOrSpecialChars ? { invalidName: true } : null;
     };
   }
 
@@ -203,12 +233,18 @@ export class RegistrarseComponent implements OnInit {
     if (control.hasError('email')) return 'Email inválido';
     if (control.hasError('minlength'))
       return 'La contraseña debe tener al menos 6 caracteres';
+    if (control.hasError('invalidName'))
+      return 'El nombre solo puede contener letras y espacios';
     if (control.hasError('maxlength'))
       return 'La contraseña no puede tener más de 18 caracteres';
     if (control.hasError('passwordRequirements'))
       return 'La contraseña debe contener al menos un número y una mayúscula';
     if (control.hasError('minAge'))
       return 'Debes tener al menos 13 años para registrarte';
+    if (control.hasError('invalidDate'))
+      return 'La fecha de nacimiento no puede ser anterior a 1900';
+    if (control.hasError('futureDate'))
+      return 'La fecha de nacimiento no puede ser futura';
 
     return '';
   }

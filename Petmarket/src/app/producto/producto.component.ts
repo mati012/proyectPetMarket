@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CartService } from '../cart.service';
 
 interface Producto {
   id: number;
@@ -19,12 +18,10 @@ interface Producto {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './producto.component.html',
-  styleUrl: './producto.component.css',
+  styleUrls: ['./producto.component.css'],
 })
 export class ProductoComponent {
   @Input() category: 'comida' | 'juguetes' | 'transportadores' | null = null;
-
-  constructor(private cartService: CartService, private router: Router) {}
 
   productos: Producto[] = [
     {
@@ -57,18 +54,16 @@ export class ProductoComponent {
       descuento: false,
       category: 'transportadores',
     },
-
     {
       id: 4,
       name: 'Mochila',
       price: '$29.990 ',
       imageUrl: '/assets/canilGato.jpg',
-      description: 'caja de sobres de la edicion modern horizon 3',
+      description: 'caja de sobres de la edición modern horizon 3',
       rating: 4,
       descuento: false,
       category: 'transportadores',
     },
-
     {
       id: 5,
       name: 'hueso de hule',
@@ -84,15 +79,25 @@ export class ProductoComponent {
       name: 'Cuerda entrenadora',
       price: '$69.990 ',
       imageUrl: '/assets/cuerdas.jpg',
-      description: 'cuerda especializada para entrenar perros',
+      description: 'Cuerda especializada para entrenar perros',
       rating: 4,
       descuento: false,
       category: 'juguetes',
     },
   ];
 
-  addToCart(product: any) {
-    this.cartService.addToCart(product);
+  carrito: Producto[] = [];
+
+  constructor(private router: Router) {}
+
+  addToCart(product: Producto) {
+    const productoEnCarrito = this.carrito.find((item) => item.id === product.id);
+    if (productoEnCarrito) {
+      alert('Este producto ya está en el carrito.');
+    } else {
+      this.carrito.push(product);
+      alert(`${product.name} fue añadido al carrito.`);
+    }
   }
 
   goToProductDetail(productId: number) {
@@ -101,7 +106,12 @@ export class ProductoComponent {
 
   get filteredProductos(): Producto[] {
     return this.category
-      ? this.productos.filter((Producto) => Producto.category === this.category)
+      ? this.productos.filter((producto) => producto.category === this.category)
       : this.productos;
+  }
+
+  showCartItems() {
+    console.log('Carrito:', this.carrito);
+    alert(`Tienes ${this.carrito.length} productos en el carrito.`);
   }
 }
