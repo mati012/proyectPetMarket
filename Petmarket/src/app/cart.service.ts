@@ -22,7 +22,7 @@ export class CartService {
   }
 
   addToCart(item: CartItem): Observable<CartItem> {
-    // Simulación de POST
+   
     return new Observable((observer) => {
       observer.next(item);
       observer.complete();
@@ -30,7 +30,7 @@ export class CartService {
   }
 
   updateCartItem(item: CartItem): Observable<CartItem> {
-    // Simulación de PUT
+  
     return new Observable((observer) => {
       observer.next(item);
       observer.complete();
@@ -38,7 +38,7 @@ export class CartService {
   }
 
   removeFromCart(itemId: number): Observable<number> {
-    // Simulación de DELETE
+   
     return new Observable((observer) => {
       observer.next(itemId);
       observer.complete();
